@@ -26,9 +26,7 @@ public class Main {
 
         String userInput = in.readLine();
         System.out.println("userInput = " + userInput);
-        if (userInput.equals("PING")) {
-          out.println("PONG");
-        }
+        out.println("PONG");
       }
     } catch (IOException e) {
       System.out.println("IOException: " + e.getMessage());
