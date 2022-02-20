@@ -26,7 +26,7 @@ public class Main {
 
         String userInput = in.readLine();
         System.out.println("userInput = " + userInput);
-        out.println("+PONG\r\n");
+        out.println(asRESP("PONG"));
       }
     } catch (IOException e) {
       System.out.println("IOException: " + e.getMessage());
@@ -40,4 +40,9 @@ public class Main {
       }
     }
   }
+
+  private static String asRESP(String s) {
+    return "+" + s + "\r\n";
+  }
+
 }
