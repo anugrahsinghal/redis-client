@@ -34,14 +34,14 @@ public class ConcurrentSocketHandler implements Runnable {
 
 			System.out.printf("Thread %s connection was close", Thread.currentThread().getName());
 		} catch (IOException e) {
-			System.out.println("IOException: " + e.getMessage());
+			System.out.println(Thread.currentThread().getName() + " IOException: " + e.getMessage());
 		} finally {
 			try {
 				if (clientSocket != null) {
 					clientSocket.close();
 				}
 			} catch (IOException e) {
-				System.out.println("IOException: " + e.getMessage());
+				System.out.println(Thread.currentThread().getName() + " IOException: " + e.getMessage() + " while closing");
 			}
 		}
 	}
