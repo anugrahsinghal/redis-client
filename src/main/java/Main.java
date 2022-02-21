@@ -28,8 +28,8 @@ public class Main {
         while (true) {
           userInput = in.readLine();
           String pong = asRESP("PONG");
-          out.println(pong);
           System.out.printf("userInput %s and out %s", userInput, pong);
+          out.println(pong);
         }
       }
     } catch (IOException e) {

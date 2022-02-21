@@ -1,4 +1,4 @@
 java_redis.jar
 .idea/*
-.idea
-out/
+.idea/*.*
+out/*.*
