@@ -27,7 +27,8 @@ public class Main {
         String userInput;
         while ((userInput = in.readLine()) != null) {
           System.out.println("userInput = " + userInput);
-          out.print(asRESP("PONG"));
+          out.write(asRESP("PONG"));
+          out.flush();
         }
       }
     } catch (IOException e) {
