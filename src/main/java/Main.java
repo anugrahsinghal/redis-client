@@ -18,7 +18,7 @@ public class Main {
       serverSocket = new ServerSocket(port);
       serverSocket.setReuseAddress(true);
       // Wait for connection from client.
-//      while (true) {
+      while (true) {
         clientSocket = serverSocket.accept();
 
         PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
@@ -31,7 +31,7 @@ public class Main {
           out.println(pong);
           System.out.printf("userInput %s and out %s", userInput, pong);
         }
-//      }
+      }
     } catch (IOException e) {
       System.out.println("IOException: " + e.getMessage());
     } finally {
