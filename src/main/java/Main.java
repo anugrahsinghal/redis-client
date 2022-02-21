@@ -24,13 +24,13 @@ public class Main {
         PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
         BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
-        String userInput;
-        while (true) {
-          userInput = in.readLine();
-          String pong = asRESP("PONG");
-          System.out.printf("userInput %s and out %s", userInput, pong);
-          out.println(pong);
-        }
+        in.lines()
+                .forEach(line -> {
+                  String pong = asRESP("PONG");
+                  System.out.printf("userInput %s and out %s", line, pong);
+                  out.println(pong);
+                });
+
       }
     } catch (IOException e) {
       System.out.println("IOException: " + e.getMessage());
