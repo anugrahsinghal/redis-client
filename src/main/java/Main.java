@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -12,40 +9,26 @@ public class Main {
 
     //  Uncomment this block to pass the first stage
     ServerSocket serverSocket;
-    Socket clientSocket = null;
     int port = 6379;
     try {
       serverSocket = new ServerSocket(port);
       serverSocket.setReuseAddress(true);
       // Wait for connection from client.
-      while (true) {
-        clientSocket = serverSocket.accept();
+      while (true) { // accept all incoming connections on main thread and keep it running
+        // create new instance for each connection
+        Socket clientSocketConnection = serverSocket.accept();
 
-        PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-        BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        // An extension of runnable that takes in an *exclusive* socket as input
+        ConcurrentSocketHandler concurrentSocketHandler = new ConcurrentSocketHandler(clientSocketConnection);
 
-        String userInput;
-        while ((userInput = in.readLine()) != null) {
-          System.out.println("userInput = " + userInput);
-          out.write(asRESP("PONG"));
-          out.flush();
-        }
+        // make each connection be handled in another thread
+        Thread thread = new Thread(concurrentSocketHandler);
+
+        thread.start();
       }
+
     } catch (IOException e) {
       System.out.println("IOException: " + e.getMessage());
-    } finally {
-      try {
-        if (clientSocket != null) {
-          clientSocket.close();
-        }
-      } catch (IOException e) {
-        System.out.println("IOException: " + e.getMessage());
-      }
     }
   }
-
-  private static String asRESP(String s) {
-    return "+" + s + "\r\n";
-  }
-
 }
