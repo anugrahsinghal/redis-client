@@ -24,9 +24,11 @@ public class Main {
         PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
         BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
-        String userInput = in.readLine();
-        System.out.println("userInput = " + userInput);
-        out.println(asRESP("PONG"));
+        String userInput;
+        while ((userInput = in.readLine()) != null) {
+          System.out.println("userInput = " + userInput);
+          out.println(asRESP("PONG"));
+        }
       }
     } catch (IOException e) {
       System.out.println("IOException: " + e.getMessage());
