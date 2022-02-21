@@ -18,20 +18,22 @@ public class Main {
       serverSocket = new ServerSocket(port);
       serverSocket.setReuseAddress(true);
       // Wait for connection from client.
-      while (true) {
-        clientSocket = serverSocket.accept();
+      clientSocket = serverSocket.accept();
 
-        PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-        BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+      PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+      BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
-        in.lines()
-                .forEach(line -> {
-                  String pong = asRESP("PONG");
-                  System.out.printf("userInput %s and out %s", line, pong);
-                  out.println(pong);
-                });
-
+      for (;in.ready();) {
+        String line = in.readLine();
+        String pong = asRESP("PONG");
+        System.out.printf("userInput %s and out %s", line, pong);
+        out.println(pong);
       }
+//      in.lines()
+//              .forEach(line -> {
+//
+//              });
+
     } catch (IOException e) {
       System.out.println("IOException: " + e.getMessage());
     } finally {
