@@ -23,10 +23,10 @@ public class Main {
       PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
       BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
-      for (;in.ready();) {
-        String line = in.readLine();
+      while (true) {
+//        String line = in.readLine();
         String pong = asRESP("PONG");
-        System.out.printf("userInput %s and out %s", line, pong);
+//        System.out.printf("userInput %s and out %s", line, pong);
         out.println(pong);
       }
 //      in.lines()
