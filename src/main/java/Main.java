@@ -25,7 +25,8 @@ public class Main {
         BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
         String userInput;
-        while ((userInput = in.readLine()) != null) {
+        while (true) {
+          userInput = in.readLine();
           System.out.println("userInput = " + userInput);
           out.println(asRESP("PONG"));
         }
