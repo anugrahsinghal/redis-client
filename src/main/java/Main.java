@@ -27,8 +27,9 @@ public class Main {
         String userInput;
         while (true) {
           userInput = in.readLine();
-          System.out.println("userInput = " + userInput);
-          out.println(asRESP("PONG"));
+          String pong = asRESP("PONG");
+          out.println(pong);
+          System.out.printf("userInput %s and out %s", userInput, pong);
         }
 //      }
     } catch (IOException e) {
